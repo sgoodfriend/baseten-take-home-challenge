@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import './App.css';
 import Instructions from './Instructions';
-import Placeholder from './Placeholder';
 import Trigger from './Trigger';
 import SelectedOutput from './SelectedOutput';
+import Search from './Search';
 
 function App() {
   const [selected, setSelected] = useState();
+  const [isTriggered, setIsTriggered] = useState(false);
 
   function handleTrigger() {
-    setSelected('No implementation; unhandled trigger');
+    setIsTriggered(!isTriggered);
+  }
+
+  function onSelection(result) {
+    setSelected(result);
+    setIsTriggered(false);
   }
 
   return (
@@ -18,8 +24,7 @@ function App() {
       <div className="Implementation">
         <Trigger onTrigger={handleTrigger} />
 
-        {/* Replace the Placeholder component below with your implementation */}
-        <Placeholder replaceMe />
+        {isTriggered ? <Search onSelection={onSelection}/> : undefined}
 
         <SelectedOutput selected={selected}/>
       </div>

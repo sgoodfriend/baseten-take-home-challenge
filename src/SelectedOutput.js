@@ -1,11 +1,11 @@
 import React from 'react'
+import SearchResult from './SearchResult';
 
-function SelectedOutput({ selected = 'Nothing selected' }) {
-  const selectedString = selected.toString();
+function SelectedOutput({ selected }) {
   return (
     <div className="Output" data-cy="selected-output">
       <p>Selected Output:</p>
-      <p>{selectedString}</p>
+      {selected ? <SearchResult result={selected}/> : 'Nothing selected'}
     </div>
   );
 }

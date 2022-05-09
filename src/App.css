@@ -47,7 +47,7 @@
 }
 
 .Implementation {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   justify-content: center;
   flex: 1;
@@ -77,10 +77,30 @@
 
 .Trigger {
   margin: 20px auto;
+  display: flex;
+  justify-content: center;
 }
 .Trigger > button {
   padding: 10px 15px;
   font-size: 18px;
+}
+
+.SearchResult {
+  margin: 20px auto;
+}
+
+.SearchResult.isSelection {
+  background: red;
+}
+
+.ResultMain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ResultType {
+  margin-left: 20px
 }
 
 .Output {
