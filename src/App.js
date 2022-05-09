@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Instructions from './Instructions';
 import Trigger from './Trigger';
@@ -7,16 +7,29 @@ import Search from './Search';
 
 function App() {
   const [selected, setSelected] = useState();
-  const [isTriggered, setIsTriggered] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
 
   function handleTrigger() {
-    setIsTriggered(!isTriggered);
+    setIsSearchActive(!isSearchActive);
   }
 
   function onSelection(result) {
     setSelected(result);
-    setIsTriggered(false);
+    setIsSearchActive(false);
   }
+
+  function keyDownHandler({key, metaKey, ctrlKey, shiftKey, altKey}) {
+    if (key === 'k' && (metaKey || ctrlKey) && !shiftKey && !altKey) {
+      setIsSearchActive(!isSearchActive);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', keyDownHandler);
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    }
+  })
 
   return (
     <div className="App">
@@ -24,7 +37,7 @@ function App() {
       <div className="Implementation">
         <Trigger onTrigger={handleTrigger} />
 
-        {isTriggered ? <Search onSelection={onSelection}/> : undefined}
+        {isSearchActive ? <Search onSelection={onSelection}/> : undefined}
 
         <SelectedOutput selected={selected}/>
       </div>

@@ -6,6 +6,7 @@ function Search({onSelection}) {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [selectionIndex, setSelectionIndex] = useState(0);
+    const [hasSelected, setHasSelected] = useState(false);
 
     const searchInputRef = createRef();
 
@@ -29,6 +30,7 @@ function Search({onSelection}) {
             case 'Enter':
                 if (results.length > 0) {
                     onSelection(results[selectionIndex]);
+                    setHasSelected(true);
                 }
                 break;
             case 'Escape':
@@ -37,6 +39,19 @@ function Search({onSelection}) {
             default:
                 break;
         }
+    }
+
+    function onBlur() {
+        setImmediate(() => {
+            if (hasSelected) {
+                onSelection(null);
+            }
+        });
+    }
+
+    function onSelectionWrapper(result) {
+        setHasSelected(true);
+        onSelection(result);
     }
 
     useEffect(() => {
@@ -50,9 +65,9 @@ function Search({onSelection}) {
     return (
         <div className="Search">
             <div className="SearchInput">
-                <input autoFocus type="text" value={query} onChange={updateQuery} ref={searchInputRef}/>
+                <input autoFocus type="text" value={query} onChange={updateQuery} onBlur={onBlur} ref={searchInputRef}/>
             </div>
-            <SearchResults results={results} selectionIndex={selectionIndex} onSelection={onSelection}/>
+            <SearchResults results={results} selectionIndex={selectionIndex} onSelection={onSelectionWrapper}/>
         </div>
     )
 }

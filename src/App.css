@@ -52,6 +52,7 @@
   justify-content: center;
   flex: 1;
   height: 100%;
+  width: 600px;
 }
 
 .Placeholder {
@@ -80,17 +81,25 @@
   display: flex;
   justify-content: center;
 }
+
 .Trigger > button {
   padding: 10px 15px;
   font-size: 18px;
 }
 
+.SearchInput > input {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
 .SearchResult {
-  margin: 20px auto;
+  padding: 20px 10px;
 }
 
 .SearchResult.isSelection {
-  background: red;
+  background: cyan;
 }
 
 .ResultMain {

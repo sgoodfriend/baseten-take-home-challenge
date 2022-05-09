@@ -1,6 +1,6 @@
 function SearchResult( {result, isSelection, onSelection } ) {
     function onClick() {
-        onSelection(result);
+        onSelection?.(result);
     }
 
     const {item} = result;
